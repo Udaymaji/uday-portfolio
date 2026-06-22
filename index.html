@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portfolio of Uday Maji, a CSE B.Tech student at JIS University interested in business, technology, leadership, and community."
+    />
+    <title>Uday Maji | Scrolling Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Premium Ambient Lighting Blobs -->
+    <div class="mesh-blob mesh-blob-1" aria-hidden="true"></div>
+    <div class="mesh-blob mesh-blob-2" aria-hidden="true"></div>
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+    <div class="scroll-progress" data-scroll-progress></div>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="Uday Maji home">
+        <span class="brand-mark">
+          <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="var(--cyan)" />
+                <stop offset="50%" stop-color="var(--violet)" />
+                <stop offset="100%" stop-color="var(--coral)" />
+              </linearGradient>
+              <filter id="logo-glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+            <path d="M25,25 V60 C25,75 35,80 50,80 C65,80 75,75 75,60 V25 M40,80 V45 M60,80 V45" stroke="url(#logo-grad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" filter="url(#logo-glow)" />
+          </svg>
+        </span>
+        <span class="brand-text">Uday Maji</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-nav-toggle>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="site-nav" data-nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#achievements">Proof</a>
+        <a href="#events">Events</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="scroll-section hero">
+        <div class="hero-copy reveal-left">
+          <p class="eyebrow">CSE B.Tech / JIS University</p>
+          <h1>Uday Maji</h1>
+          <p class="hero-text">
+            A software builder and community organizer operating at the intersection of computer science, product strategy, and student leadership. I specialize in engineering clean applications, driving developer outreach, and turning technical concepts into scalable solutions.
+          </p>
+          <div class="hero-actions" aria-label="Contact links">
+            <a class="button primary" href="mailto:udaymaji447@gmail.com">Mail</a>
+            <a class="button" href="https://www.linkedin.com/in/uday-maji-65437b276" target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+            <a
+              class="button"
+              href="https://www.instagram.com/eccedentesiast_ud?igsh=ZmM5Y2RqeGMwdmls"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stage reveal-right">
+          <div class="profile-frame">
+            <img src="assets/profile.jpeg" alt="Portrait of Uday Maji" />
+          </div>
+          <div class="signal-card top-card">
+            <span>Focus</span>
+            <strong>Business + Tech</strong>
+          </div>
+          <div class="signal-card bottom-card">
+            <span>Community</span>
+            <strong>Google Ambassador</strong>
+          </div>
+        </div>
+
+        <div class="scroll-cue" aria-hidden="true">
+          <span></span>
+          Scroll
+        </div>
+      </section>
+
+      <section class="ticker-band" aria-label="Portfolio highlights">
+        <div class="ticker-track">
+          <span>Google Student Ambassador</span>
+          <span>GDG Member</span>
+          <span>Hackathon Winner</span>
+          <span>Hackathon Organizer</span>
+          <span>Communication</span>
+          <span>Leadership</span>
+          <span>Teamwork</span>
+          <span>Quick Learner</span>
+        </div>
+      </section>
+
+      <section class="scroll-section split-section" id="about">
+        <div class="section-kicker reveal">
+          <p class="eyebrow">About</p>
+          <h2>Bridging the gap between software execution and business value.</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-narrative reveal-left">
+            <p>
+              I am a Computer Science Engineering student at JIS University from Kolkata, West Bengal. My interest goes beyond writing code; I want to understand how technology solves real-world challenges, aligns with business goals, and scales effectively to make a meaningful user impact.
+            </p>
+            <p>
+              I thrive in fast-paced environments that demand rapid learning, clear communication, and collaborative leadership. Hackathons, tech meetups, and developer communities are my testing grounds for building software solutions and empowering peers.
+            </p>
+          </div>
+          <div class="about-highlights reveal-right">
+            <div class="highlight-item">
+              <span class="highlight-val">01</span>
+              <div class="highlight-text">
+                <strong>Systems Thinking</strong>
+                <p>Analyzing problem spaces to engineer modular, clean, and scalable logic architectures.</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-val">02</span>
+              <div class="highlight-text">
+                <strong>Community Advocacy</strong>
+                <p>Empowering developer growth and driving technical outreach as a Google Student Ambassador.</p>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-val">03</span>
+              <div class="highlight-text">
+                <strong>Agile Leadership</strong>
+                <p>Coordinating cross-functional engineering teams to organize and deliver high-impact campus tech events.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scroll-section skills-section" id="skills">
+        <div class="section-kicker centered reveal">
+          <p class="eyebrow">Skills</p>
+          <h2>Core capabilities and leadership attributes.</h2>
+        </div>
+        <div class="skill-lanes">
+          <article class="skill-widget-card reveal">
+            <span class="lane-number">01</span>
+            <h3>Programming</h3>
+            <p>Engineering structured algorithms, logical systems, and OOP paradigms using C, C++, Python, and Java.</p>
+            <div class="chips">
+              <span>C</span>
+              <span>C++</span>
+              <span>Python</span>
+              <span>Java</span>
+            </div>
+          </article>
+          <article class="skill-widget-card reveal">
+            <span class="lane-number">02</span>
+            <h3>Web Foundation</h3>
+            <p>Designing highly responsive, layout-perfect user experiences and semantic layouts with HTML5 & CSS3.</p>
+            <div class="chips">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>Responsive UI</span>
+            </div>
+          </article>
+          <article class="skill-widget-card reveal">
+            <span class="lane-number">03</span>
+            <h3>Leadership & Strategy</h3>
+            <p>Scaling team performance, steering events, and leading developer advocacy with high emotional intelligence.</p>
+            <div class="chips">
+              <span>Communication</span>
+              <span>Leadership</span>
+              <span>Teamwork</span>
+              <span>Quick Learner</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="scroll-section proof-section" id="achievements">
+        <div class="section-kicker reveal">
+          <p class="eyebrow">Proof</p>
+          <h2>Achievements, certificates, and community work.</h2>
+        </div>
+        <div class="proof-grid">
+          <div class="achievement-stack reveal-left">
+            <article>
+              <span>Advocacy</span>
+              <h3>Google Student Ambassador</h3>
+              <p>Fostering campus tech awareness, hosting developer study jams, and bridging industry-academic spaces.</p>
+            </article>
+            <article>
+              <span>Engagement</span>
+              <h3>GDG Member</h3>
+              <p>Contributing to open-source initiatives, speaking at meetups, and facilitating student workshops.</p>
+            </article>
+            <article>
+              <span>Competitions</span>
+              <h3>Winner & Organizer</h3>
+              <p>Pitching rapid prototypes at hackathons while simultaneously coordinating large-scale developer events.</p>
+            </article>
+          </div>
+          <div class="certificate-wall reveal-right">
+            <figure class="certificate-card reveal" data-lightbox-trigger>
+              <img src="assets/cert-codesprint.jpeg" alt="Codesprint 2.0 participation certificate" />
+              <figcaption>Codesprint 2.0</figcaption>
+            </figure>
+            <figure class="certificate-card reveal" data-lightbox-trigger>
+              <img src="assets/cert-hp-life.jpeg" alt="HP LIFE Starting a Small Business certificate" />
+              <figcaption>HP LIFE Business</figcaption>
+            </figure>
+            <figure class="certificate-card reveal" data-lightbox-trigger>
+              <img src="assets/cert-accenture-forage.jpeg" alt="Accenture Forage data analytics certificate" />
+              <figcaption>Accenture Data Analytics</figcaption>
+            </figure>
+            <figure class="certificate-card reveal" data-lightbox-trigger>
+              <img src="assets/cert-tata-forage.jpeg" alt="Tata Forage GenAI data analytics certificate" />
+              <figcaption>Tata GenAI Analytics</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="scroll-section events-section" id="events">
+        <div class="section-kicker centered reveal">
+          <p class="eyebrow">Events</p>
+          <h2>Speaking, organizing, and building campus momentum.</h2>
+        </div>
+        <div class="event-river">
+          <figure class="event-card large reveal" data-lightbox-trigger>
+            <img src="assets/event-1.jpeg" alt="Uday speaking to students in a lecture hall" />
+            <figcaption>Campus session with students</figcaption>
+          </figure>
+          <figure class="event-card reveal" data-lightbox-trigger>
+            <img src="assets/event-2.jpeg" alt="Group photo from a student event" />
+            <figcaption>Community learning event</figcaption>
+          </figure>
+          <figure class="event-card reveal" data-lightbox-trigger>
+            <img src="assets/event-3.jpeg" alt="Students attending a college event" />
+            <figcaption>Technical meetup audience</figcaption>
+          </figure>
+          <figure class="event-card tall reveal" data-lightbox-trigger>
+            <img src="assets/event-4.jpeg" alt="Uday presenting with a microphone" />
+            <figcaption>Presentation and mentoring session</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="scroll-section projects-section" id="projects">
+        <div class="section-kicker centered reveal">
+          <p class="eyebrow">Projects</p>
+          <h2>Crafting digital ideas into reality.</h2>
+        </div>
+        <div class="coming-soon-container reveal">
+          <div class="coming-soon-card">
+            <div class="glow-effect" aria-hidden="true"></div>
+            <div class="coming-soon-content">
+              <span class="status-badge">Next Phase</span>
+              <h3>Project Showcase</h3>
+              <p>
+                I am currently refining a curated portfolio of technical solutions spanning full-stack web applications, machine learning pipelines, and robust OOP applications. Source code, documentation, and live deployments will be published shortly.
+              </p>
+              <div class="coming-soon-footer">
+                <div class="pulse-indicator" aria-hidden="true"></div>
+                <span>Coming Soon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scroll-section timeline-section" id="education">
+        <div class="section-kicker reveal">
+          <p class="eyebrow">Education</p>
+          <h2>Academic background.</h2>
+        </div>
+        <div class="timeline-board reveal">
+          <article>
+            <span>B.Tech (2023 - 2027)</span>
+            <h3>Computer Science Engineering</h3>
+            <p>JIS University, Kolkata</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="scroll-section contact-section" id="contact">
+        <div class="contact-panel reveal">
+          <p class="eyebrow">Contact</p>
+          <h2>Let’s connect and build something useful.</h2>
+          <p>
+            I am always open to exploring community initiatives, hackathon collaborations, technical internships, and innovative software solutions. Let’s build something together.
+          </p>
+          <div class="contact-actions" aria-label="Contact buttons">
+            <a class="button primary" href="mailto:udaymaji447@gmail.com">Mail</a>
+            <a class="button" href="https://www.linkedin.com/in/uday-maji-65437b276" target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+            <a
+              class="button"
+              href="https://www.instagram.com/eccedentesiast_ud?igsh=ZmM5Y2RqeGMwdmls"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026 Uday Maji</span>
+      <a href="#top">Back to top</a>
+    </footer>
+
+    <!-- Premium Lightbox Modal -->
+    <div class="lightbox-modal" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+      <button class="lightbox-close" aria-label="Close image viewer" data-lightbox-close>&times;</button>
+      <div class="lightbox-content">
+        <img src="" alt="" id="lightbox-img" />
+        <p id="lightbox-caption" class="lightbox-caption"></p>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
