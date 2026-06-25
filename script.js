@@ -129,10 +129,23 @@ const applyParallaxTransforms = (s) => {
     if (bottomCard) bottomCard.style.transform = `translateY(${s * 0.03}px)`;
     if (blob1) blob1.style.transform = `translateY(${s * 0.08}px)`;
     if (blob2) blob2.style.transform = `translateY(${s * -0.05}px)`;
+  } else {
+    if (profileFrame) profileFrame.style.transform = "";
+    if (topCard) topCard.style.transform = "";
+    if (bottomCard) bottomCard.style.transform = "";
+    if (blob1) blob1.style.transform = "";
+    if (blob2) blob2.style.transform = "";
   }
 };
 
 const apply3DScrollTransforms = (s) => {
+  if (!isHoverDevice || isMobileLayout) {
+    scroll3DElements.forEach((el) => {
+      el.style.transform = "";
+    });
+    return;
+  }
+
   cachedElements.forEach((item) => {
     const el = item.element;
     if (!el.classList.contains("visible")) return;
@@ -753,6 +766,8 @@ class CinematicSynth {
     this.osc1 = null;
     this.osc2 = null;
     this.filter = null;
+    this.lfo = null;
+    this.lfoGain = null;
     this.delayNode = null;
     this.delayFeedback = null;
     this.isInitialized = false;
@@ -762,70 +777,105 @@ class CinematicSynth {
   init() {
     if (this.isInitialized) return;
     
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    this.audioCtx = new AudioContextClass();
-    
-    this.masterGain = this.audioCtx.createGain();
-    this.masterGain.gain.setValueAtTime(0, this.audioCtx.currentTime);
-    this.masterGain.connect(this.audioCtx.destination);
-    
-    this.filter = this.audioCtx.createBiquadFilter();
-    this.filter.type = "lowpass";
-    this.filter.frequency.setValueAtTime(180, this.audioCtx.currentTime);
-    
-    this.padGain = this.audioCtx.createGain();
-    this.padGain.gain.setValueAtTime(0.45, this.audioCtx.currentTime);
-    
-    this.osc1 = this.audioCtx.createOscillator();
-    this.osc1.type = "triangle";
-    this.osc1.frequency.setValueAtTime(65.41, this.audioCtx.currentTime); // C2 note
-    
-    this.osc2 = this.audioCtx.createOscillator();
-    this.osc2.type = "triangle";
-    this.osc2.frequency.setValueAtTime(65.75, this.audioCtx.currentTime); // detuned low pad
-    
-    this.delayNode = this.audioCtx.createDelay();
-    this.delayNode.delayTime.setValueAtTime(0.35, this.audioCtx.currentTime);
-    
-    this.delayFeedback = this.audioCtx.createGain();
-    this.delayFeedback.gain.setValueAtTime(0.38, this.audioCtx.currentTime);
-    
-    this.delayNode.connect(this.delayFeedback);
-    this.delayFeedback.connect(this.delayNode);
-    
-    this.osc1.connect(this.filter);
-    this.osc2.connect(this.filter);
-    this.filter.connect(this.padGain);
-    this.padGain.connect(this.masterGain);
-    this.delayNode.connect(this.masterGain);
-    
-    this.osc1.start(0);
-    this.osc2.start(0);
-    
-    this.isInitialized = true;
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      this.audioCtx = new AudioContextClass();
+      
+      this.masterGain = this.audioCtx.createGain();
+      this.masterGain.gain.setValueAtTime(0, this.audioCtx.currentTime);
+      this.masterGain.connect(this.audioCtx.destination);
+      
+      // Resonant Lowpass Filter for pad warmness
+      this.filter = this.audioCtx.createBiquadFilter();
+      this.filter.type = "lowpass";
+      this.filter.frequency.setValueAtTime(170, this.audioCtx.currentTime);
+      this.filter.Q.setValueAtTime(1.5, this.audioCtx.currentTime);
+      
+      // Slow LFO to sweep filter frequency (creates breathing movement)
+      this.lfo = this.audioCtx.createOscillator();
+      this.lfo.type = "sine";
+      this.lfo.frequency.setValueAtTime(0.12, this.audioCtx.currentTime); // slow sweep: ~8s cycle
+      
+      this.lfoGain = this.audioCtx.createGain();
+      this.lfoGain.gain.setValueAtTime(60, this.audioCtx.currentTime); // sweeps +/- 60Hz
+      
+      this.lfo.connect(this.lfoGain);
+      this.lfoGain.connect(this.filter.frequency); // modulate filter frequency
+      
+      this.padGain = this.audioCtx.createGain();
+      this.padGain.gain.setValueAtTime(0.4, this.audioCtx.currentTime);
+      
+      // Pad Oscillators: Low Fifth Chord (C2 + G2) detuned slightly for warm analog chorus
+      this.osc1 = this.audioCtx.createOscillator();
+      this.osc1.type = "triangle";
+      this.osc1.frequency.setValueAtTime(65.41, this.audioCtx.currentTime); // C2 Note
+      
+      this.osc2 = this.audioCtx.createOscillator();
+      this.osc2.type = "triangle";
+      this.osc2.frequency.setValueAtTime(98.15, this.audioCtx.currentTime); // G2 Note (+ detune)
+      
+      // Delay effect for chimes
+      this.delayNode = this.audioCtx.createDelay();
+      this.delayNode.delayTime.setValueAtTime(0.38, this.audioCtx.currentTime);
+      
+      this.delayFeedback = this.audioCtx.createGain();
+      this.delayFeedback.gain.setValueAtTime(0.42, this.audioCtx.currentTime);
+      
+      this.delayNode.connect(this.delayFeedback);
+      this.delayFeedback.connect(this.delayNode);
+      
+      // Connect pad
+      this.osc1.connect(this.filter);
+      this.osc2.connect(this.filter);
+      this.filter.connect(this.padGain);
+      this.padGain.connect(this.masterGain);
+      
+      // Connect delay output directly to master (effects path)
+      this.delayNode.connect(this.masterGain);
+      
+      // Start pad oscillators
+      this.osc1.start(0);
+      this.osc2.start(0);
+      this.lfo.start(0);
+      
+      this.isInitialized = true;
+    } catch (e) {
+      console.warn("Web Audio API not supported or blocked in this browser:", e);
+      this.isInitialized = false;
+    }
   }
 
   unmute() {
-    this.init();
-    if (this.audioCtx.state === "suspended") {
-      this.audioCtx.resume();
+    try {
+      this.init();
+      if (!this.isInitialized) return;
+      
+      if (this.audioCtx && this.audioCtx.state === "suspended") {
+        this.audioCtx.resume();
+      }
+      this.isMuted = false;
+      
+      const now = this.audioCtx.currentTime;
+      this.masterGain.gain.cancelScheduledValues(now);
+      this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
+      this.masterGain.gain.linearRampToValueAtTime(0.65, now + 1.8);
+    } catch (e) {
+      console.error("Failed to unmute audio context:", e);
     }
-    this.isMuted = false;
-    
-    const now = this.audioCtx.currentTime;
-    this.masterGain.gain.cancelScheduledValues(now);
-    this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
-    this.masterGain.gain.linearRampToValueAtTime(0.7, now + 1.5);
   }
 
   mute() {
-    if (!this.isInitialized) return;
-    this.isMuted = true;
-    
-    const now = this.audioCtx.currentTime;
-    this.masterGain.gain.cancelScheduledValues(now);
-    this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
-    this.masterGain.gain.linearRampToValueAtTime(0, now + 0.3);
+    try {
+      if (!this.isInitialized || !this.masterGain) return;
+      this.isMuted = true;
+      
+      const now = this.audioCtx.currentTime;
+      this.masterGain.gain.cancelScheduledValues(now);
+      this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, now);
+      this.masterGain.gain.linearRampToValueAtTime(0, now + 0.4);
+    } catch (e) {
+      console.error("Failed to mute audio context:", e);
+    }
   }
 
   toggleMute() {
@@ -839,23 +889,47 @@ class CinematicSynth {
   }
 
   playPluck(frequency) {
-    if (!this.isInitialized || this.isMuted) return;
+    if (!this.isInitialized || this.isMuted || !this.audioCtx) return;
     
-    const now = this.audioCtx.currentTime;
-    const osc = this.audioCtx.createOscillator();
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(frequency, now);
-    
-    const pluckGain = this.audioCtx.createGain();
-    pluckGain.gain.setValueAtTime(0.38, now);
-    pluckGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.5);
-    
-    osc.connect(pluckGain);
-    pluckGain.connect(this.masterGain);
-    pluckGain.connect(this.delayNode);
-    
-    osc.start(now);
-    osc.stop(now + 1.7);
+    try {
+      const now = this.audioCtx.currentTime;
+      
+      // 2-Operator FM Synthesizer for rich metallic plucks/chimes
+      const carrier = this.audioCtx.createOscillator();
+      carrier.type = "sine";
+      carrier.frequency.setValueAtTime(frequency, now);
+      
+      const modulator = this.audioCtx.createOscillator();
+      modulator.type = "sine";
+      modulator.frequency.setValueAtTime(frequency * 2.0, now); // Harmonic modulator: twice the frequency
+      
+      const modulatorGain = this.audioCtx.createGain();
+      // Modulation index: starts high for bright metallic strike, decays instantly
+      modulatorGain.gain.setValueAtTime(frequency * 1.5, now);
+      modulatorGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+      
+      // Carrier Gain envelope (decay curve)
+      const carrierGain = this.audioCtx.createGain();
+      carrierGain.gain.setValueAtTime(0.35, now);
+      carrierGain.gain.exponentialRampToValueAtTime(0.0001, now + 1.8);
+      
+      // Connect modulator -> carrier frequency
+      modulator.connect(modulatorGain);
+      modulatorGain.connect(carrier.frequency);
+      
+      // Connect carrier -> output paths
+      carrier.connect(carrierGain);
+      carrierGain.connect(this.masterGain);
+      carrierGain.connect(this.delayNode); // Feed delay effect node
+      
+      modulator.start(now);
+      carrier.start(now);
+      
+      modulator.stop(now + 1.9);
+      carrier.stop(now + 1.9);
+    } catch (e) {
+      console.error("Error during pluck synthesis:", e);
+    }
   }
 
   stopAll() {
@@ -865,9 +939,10 @@ class CinematicSynth {
       try {
         if (this.osc1) this.osc1.stop();
         if (this.osc2) this.osc2.stop();
+        if (this.lfo) this.lfo.stop();
         if (this.audioCtx) this.audioCtx.close();
       } catch(e) {}
-    }, 800);
+    }, 1000);
   }
 }
 
@@ -920,17 +995,17 @@ function startIntroSequence() {
   const stepTime = 950; // timing pace
   const notes = [
     523.25, // Tag 1: C5
-    587.33, // Tag 2: D5
-    659.25, // Tag 3: E5
-    783.99, // Tag 4: G5
-    880.00, // Tag 5: A5
-    1046.50,// Tag 6: C6
-    1174.66,// Tag 7: D6
-    1318.51,// Tag 8: E6
-    1567.98,// Tag 9: G6
-    1760.00,// Tag 10: A6
-    2093.00,// Tag 11: C7
-    2637.02 // Tag 12: E7
+    659.25, // Tag 2: E5
+    783.99, // Tag 3: G5
+    880.00, // Tag 4: A5
+    1046.50,// Tag 5: C6
+    880.00, // Tag 6: A5
+    783.99, // Tag 7: G5
+    659.25, // Tag 8: E5
+    587.33, // Tag 9: D5
+    783.99, // Tag 10: G5
+    1046.50,// Tag 11: C6
+    1174.66 // Tag 12: D6
   ];
 
   // Animate Taglines
@@ -957,11 +1032,12 @@ function startIntroSequence() {
   introTimeouts.push(setTimeout(() => {
     if (introNameContainer) {
       introNameContainer.classList.add("visible");
-      // Play C Major Chord
+      // Play Lush Cmaj9 Chord
+      synth.playPluck(261.63); // C4
+      synth.playPluck(329.63); // E4
       synth.playPluck(392.00); // G4
-      synth.playPluck(523.25); // C5
-      synth.playPluck(659.25); // E5
-      synth.playPluck(783.99); // G5
+      synth.playPluck(493.88); // B4
+      synth.playPluck(587.33); // D5
     }
   }, nameStartTime));
 
