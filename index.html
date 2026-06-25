@@ -9,8 +9,57 @@
     />
     <title>Uday Maji | Scrolling Portfolio</title>
     <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function() {
+        const theme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-setting', theme);
+        if (theme === 'system') {
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+      })();
+    </script>
   </head>
   <body>
+    <!-- Cinematic Intro Overlay -->
+    <div class="intro-screen" id="intro-screen">
+      <button type="button" class="intro-sound-toggle muted" id="intro-sound-toggle" aria-label="Unmute Cinematic Soundscape">
+        <svg class="speaker-icon icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path class="wave wave-1" d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          <path class="wave wave-2" d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <svg class="speaker-icon icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+      </button>
+      <div class="intro-content">
+        <div class="intro-tagline-container">
+          <span class="intro-tagline" id="intro-tagline-1">Google Student Ambassador</span>
+          <span class="intro-tagline" id="intro-tagline-2">GDG Member</span>
+          <span class="intro-tagline" id="intro-tagline-3">Organizer</span>
+          <span class="intro-tagline" id="intro-tagline-4">Hackathon Achiever</span>
+          <span class="intro-tagline" id="intro-tagline-5">Entrepreneurship Researcher</span>
+          <span class="intro-tagline" id="intro-tagline-6">Innovator</span>
+          <span class="intro-tagline" id="intro-tagline-7">Product Strategist</span>
+          <span class="intro-tagline" id="intro-tagline-8">Vibe coder</span>
+          <span class="intro-tagline" id="intro-tagline-9">Prompt Engineer</span>
+          <span class="intro-tagline" id="intro-tagline-10">Full-Stack Developer</span>
+          <span class="intro-tagline" id="intro-tagline-11">MERN Stack Developer</span>
+          <span class="intro-tagline" id="intro-tagline-12">AI Product Builder</span>
+        </div>
+        <div class="intro-name-container" id="intro-name-container">
+          <h1 class="intro-name">Uday Maji</h1>
+          <p class="intro-college">JIS University, Kolkata</p>
+        </div>
+      </div>
+      <button type="button" class="intro-skip" id="intro-skip-btn">Skip Intro</button>
+    </div>
+
     <!-- Premium Ambient Lighting Blobs -->
     <div class="mesh-blob mesh-blob-1" aria-hidden="true"></div>
     <div class="mesh-blob mesh-blob-2" aria-hidden="true"></div>
@@ -19,25 +68,60 @@
     <div class="scroll-progress" data-scroll-progress></div>
 
     <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="Uday Maji home">
-        <span class="brand-mark">
-          <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="var(--cyan)" />
-                <stop offset="50%" stop-color="var(--violet)" />
-                <stop offset="100%" stop-color="var(--coral)" />
-              </linearGradient>
-              <filter id="logo-glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
-            </defs>
-            <path d="M25,25 V60 C25,75 35,80 50,80 C65,80 75,75 75,60 V25 M40,80 V45 M60,80 V45" stroke="url(#logo-grad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" filter="url(#logo-glow)" />
-          </svg>
-        </span>
+      <div class="brand">
+        <button class="brand-mark-card" id="logo-flip-card" type="button" aria-label="Toggle logo and profile avatar">
+          <span class="brand-mark-inner">
+            <span class="brand-mark-front">
+              <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                  <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--cyan)" />
+                    <stop offset="50%" stop-color="var(--violet)" />
+                    <stop offset="100%" stop-color="var(--coral)" />
+                  </linearGradient>
+                  <filter id="logo-glow" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                </defs>
+                <path d="M25,25 V60 C25,75 35,80 50,80 C65,80 75,75 75,60 V25 M40,80 V45 M60,80 V45" stroke="url(#logo-grad)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" filter="url(#logo-glow)" />
+              </svg>
+            </span>
+            <span class="brand-mark-back">
+              <img src="assets/profile.jpeg" alt="Uday Maji profile avatar" class="brand-avatar-img" />
+            </span>
+          </span>
+        </button>
         <span class="brand-text">Uday Maji</span>
-      </a>
+      </div>
+      <div class="theme-switch-pill" id="theme-switch">
+        <button type="button" class="theme-btn" data-theme-value="light" aria-label="Light Mode">
+          <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.72" x2="5.64" y2="18.3"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <button type="button" class="theme-btn" data-theme-value="dark" aria-label="Dark Mode">
+          <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <button type="button" class="theme-btn" data-theme-value="system" aria-label="System Theme">
+          <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+        </button>
+        <span class="theme-indicator"></span>
+      </div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-nav-toggle>
         <span></span>
         <span></span>
@@ -45,7 +129,7 @@
       <nav class="site-nav" data-nav>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
-        <a href="#achievements">Proof</a>
+        <a href="#achievements">Achievements</a>
         <a href="#events">Events</a>
         <a href="#projects">Projects</a>
         <a href="#education">Education</a>
@@ -55,39 +139,40 @@
 
     <main id="top">
       <section class="scroll-section hero">
-        <div class="hero-copy reveal-left">
+        <div class="hero-copy reveal-3d-slide-left">
           <p class="eyebrow">CSE B.Tech / JIS University</p>
           <h1>Uday Maji</h1>
           <p class="hero-text">
             A software builder and community organizer operating at the intersection of computer science, product strategy, and student leadership. I specialize in engineering clean applications, driving developer outreach, and turning technical concepts into scalable solutions.
           </p>
           <div class="hero-actions" aria-label="Contact links">
-            <a class="button primary" href="mailto:udaymaji447@gmail.com">Mail</a>
-            <a class="button" href="https://www.linkedin.com/in/uday-maji-65437b276" target="_blank" rel="noreferrer">
-              LinkedIn
+            <a class="social-icon-btn mail-btn" href="mailto:udaymaji447@gmail.com" aria-label="Email Uday">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
             </a>
-            <a
-              class="button"
-              href="https://www.instagram.com/eccedentesiast_ud?igsh=ZmM5Y2RqeGMwdmls"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Instagram
+            <a class="social-icon-btn linkedin-btn" href="https://www.linkedin.com/in/uday-maji-65437b276" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a class="social-icon-btn instagram-btn" href="https://www.instagram.com/eccedentesiast_ud?igsh=ZmM5Y2RqeGMwdmls" target="_blank" rel="noreferrer" aria-label="Instagram Profile">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
           </div>
         </div>
 
-        <div class="hero-stage reveal-right">
-          <div class="profile-frame">
+        <div class="hero-stage reveal-3d-slide-right" id="hero-stage-container">
+          <div class="profile-frame" id="profile-pic-frame" role="button" tabindex="0" aria-label="Toggle details cards">
             <img src="assets/profile.jpeg" alt="Portrait of Uday Maji" />
           </div>
-          <div class="signal-card top-card">
-            <span>Focus</span>
-            <strong>Business + Tech</strong>
+          <div class="signal-card-wrapper top-wrapper">
+            <div class="signal-card top-card">
+              <span>Focus</span>
+              <strong>Business + Tech</strong>
+            </div>
           </div>
-          <div class="signal-card bottom-card">
-            <span>Community</span>
-            <strong>Google Ambassador</strong>
+          <div class="signal-card-wrapper bottom-wrapper">
+            <div class="signal-card bottom-card">
+              <span>Community</span>
+              <strong>Google Ambassador</strong>
+            </div>
           </div>
         </div>
 
@@ -111,12 +196,12 @@
       </section>
 
       <section class="scroll-section split-section" id="about">
-        <div class="section-kicker reveal">
+        <div class="section-kicker reveal-3d-slide-left">
           <p class="eyebrow">About</p>
           <h2>Bridging the gap between software execution and business value.</h2>
         </div>
         <div class="about-grid">
-          <div class="about-narrative reveal-left">
+          <div class="about-narrative reveal-3d-scale">
             <p>
               I am a Computer Science Engineering student at JIS University from Kolkata, West Bengal. My interest goes beyond writing code; I want to understand how technology solves real-world challenges, aligns with business goals, and scales effectively to make a meaningful user impact.
             </p>
@@ -124,7 +209,7 @@
               I thrive in fast-paced environments that demand rapid learning, clear communication, and collaborative leadership. Hackathons, tech meetups, and developer communities are my testing grounds for building software solutions and empowering peers.
             </p>
           </div>
-          <div class="about-highlights reveal-right">
+          <div class="about-highlights reveal-3d-slide-right">
             <div class="highlight-item">
               <span class="highlight-val">01</span>
               <div class="highlight-text">
@@ -151,12 +236,12 @@
       </section>
 
       <section class="scroll-section skills-section" id="skills">
-        <div class="section-kicker centered reveal">
+        <div class="section-kicker centered reveal-3d-scale">
           <p class="eyebrow">Skills</p>
           <h2>Core capabilities and leadership attributes.</h2>
         </div>
         <div class="skill-lanes">
-          <article class="skill-widget-card reveal">
+          <article class="skill-widget-card reveal-3d-flip-y">
             <span class="lane-number">01</span>
             <h3>Programming</h3>
             <p>Engineering structured algorithms, logical systems, and OOP paradigms using C, C++, Python, and Java.</p>
@@ -167,7 +252,7 @@
               <span>Java</span>
             </div>
           </article>
-          <article class="skill-widget-card reveal">
+          <article class="skill-widget-card reveal-3d-flip-x">
             <span class="lane-number">02</span>
             <h3>Web Foundation</h3>
             <p>Designing highly responsive, layout-perfect user experiences and semantic layouts with HTML5 & CSS3.</p>
@@ -177,7 +262,7 @@
               <span>Responsive UI</span>
             </div>
           </article>
-          <article class="skill-widget-card reveal">
+          <article class="skill-widget-card reveal-3d-flip-y">
             <span class="lane-number">03</span>
             <h3>Leadership & Strategy</h3>
             <p>Scaling team performance, steering events, and leading developer advocacy with high emotional intelligence.</p>
@@ -191,69 +276,209 @@
         </div>
       </section>
 
-      <section class="scroll-section proof-section" id="achievements">
-        <div class="section-kicker reveal">
-          <p class="eyebrow">Proof</p>
+      <section class="scroll-section achievements-section" id="achievements">
+        <div class="section-kicker reveal-3d-slide-left">
+          <p class="eyebrow">Achievements</p>
           <h2>Achievements, certificates, and community work.</h2>
         </div>
-        <div class="proof-grid">
-          <div class="achievement-stack reveal-left">
-            <article>
-              <span>Advocacy</span>
-              <h3>Google Student Ambassador</h3>
-              <p>Fostering campus tech awareness, hosting developer study jams, and bridging industry-academic spaces.</p>
-            </article>
-            <article>
-              <span>Engagement</span>
-              <h3>GDG Member</h3>
-              <p>Contributing to open-source initiatives, speaking at meetups, and facilitating student workshops.</p>
-            </article>
-            <article>
-              <span>Competitions</span>
-              <h3>Winner & Organizer</h3>
-              <p>Pitching rapid prototypes at hackathons while simultaneously coordinating large-scale developer events.</p>
-            </article>
+        <div class="achievements-layout">
+          
+          <div class="achievements-trigger-container reveal-3d-slide-up">
+            <button id="show-achievements-btn" class="achievements-trigger-btn">
+              <span>If you really want to see my achievements, click here</span>
+              <span class="btn-glow-line"></span>
+            </button>
           </div>
-          <div class="certificate-wall reveal-right">
-            <figure class="certificate-card reveal" data-lightbox-trigger>
-              <img src="assets/cert-codesprint.jpeg" alt="Codesprint 2.0 participation certificate" />
-              <figcaption>Codesprint 2.0</figcaption>
-            </figure>
-            <figure class="certificate-card reveal" data-lightbox-trigger>
-              <img src="assets/cert-hp-life.jpeg" alt="HP LIFE Starting a Small Business certificate" />
-              <figcaption>HP LIFE Business</figcaption>
-            </figure>
-            <figure class="certificate-card reveal" data-lightbox-trigger>
-              <img src="assets/cert-accenture-forage.jpeg" alt="Accenture Forage data analytics certificate" />
-              <figcaption>Accenture Data Analytics</figcaption>
-            </figure>
-            <figure class="certificate-card reveal" data-lightbox-trigger>
-              <img src="assets/cert-tata-forage.jpeg" alt="Tata Forage GenAI data analytics certificate" />
-              <figcaption>Tata GenAI Analytics</figcaption>
-            </figure>
+
+          <div class="certificates-carousel-container hidden" id="certificates-carousel-container">
+            <div class="carousel-wrapper">
+              <button class="carousel-btn prev-btn" id="carousel-prev-btn" aria-label="Previous Certificate">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <div class="carousel-track" id="carousel-track">
+                <!-- Certificate 1: Google Student Ambassador -->
+                <div class="carousel-card" data-cert-key="cert-google-ambassador">
+                  <div class="card-inner">
+                    <img src="assets/cert-google-ambassador.jpg" alt="Google Student Ambassador Program completion certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">Google</span>
+                      <h4>Google Student Ambassador Program</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 2: Alcheringa IIT Guwahati -->
+                <div class="carousel-card" data-cert-key="cert-alcheringa">
+                  <div class="card-inner">
+                    <img src="assets/cert-alcheringa.jpg" alt="Alcheringa IIT Guwahati Certificate of Excellence" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">IIT Guwahati</span>
+                      <h4>Alcheringa Student Ambassador</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 3: NPTEL Cloud Computing -->
+                <div class="carousel-card" data-cert-key="cert-nptel-cloud">
+                  <div class="card-inner">
+                    <img src="assets/cert-nptel-cloud.jpg" alt="NPTEL Cloud Computing Certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">NPTEL</span>
+                      <h4>Cloud Computing (Elite)</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 4: Ardent MERN Full Stack -->
+                <div class="carousel-card" data-cert-key="cert-ardent-mern">
+                  <div class="card-inner">
+                    <img src="assets/cert-ardent-mern.jpg" alt="Ardent MERN Full Stack Certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">Ardent</span>
+                      <h4>MERN Full Stack Dev</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 5: Ardent Java Full Stack -->
+                <div class="carousel-card" data-cert-key="cert-ardent-java">
+                  <div class="card-inner">
+                    <img src="assets/cert-ardent-java.jpg" alt="Ardent Java Full Stack Certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">Ardent</span>
+                      <h4>Java Full Stack Dev</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 6: Euphoria GenX Python -->
+                <div class="carousel-card" data-cert-key="cert-euphoria-python">
+                  <div class="card-inner">
+                    <img src="assets/cert-euphoria-python.jpg" alt="Euphoria GenX Python Certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">Euphoria GenX</span>
+                      <h4>Python Programming</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 7: LetsUpgrade Python Bootcamp -->
+                <div class="carousel-card" data-cert-key="cert-python-bootcamp">
+                  <div class="card-inner">
+                    <img src="assets/cert-python-bootcamp.jpg" alt="LetsUpgrade Python Bootcamp Certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">LetsUpgrade</span>
+                      <h4>Python Bootcamp</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 8: Cyber Security Bootcamp -->
+                <div class="carousel-card" data-cert-key="cert-cyber-security">
+                  <div class="card-inner">
+                    <img src="assets/cert-cyber-security.jpg" alt="Cyber Security and Ethical Hacking Bootcamp Certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">LetsUpgrade</span>
+                      <h4>Cyber Security Bootcamp</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 9: GenAI Prompting -->
+                <div class="carousel-card" data-cert-key="cert-genai-prompting">
+                  <div class="card-inner">
+                    <img src="assets/cert-genai-prompting.jpg" alt="Introduction to GenAI & Prompting Certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">LetsUpgrade</span>
+                      <h4>Intro to GenAI & Prompting</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 10: Java Bootcamp -->
+                <div class="carousel-card" data-cert-key="cert-java-bootcamp">
+                  <div class="card-inner">
+                    <img src="assets/cert-java-bootcamp.jpg" alt="Java Bootcamp Certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">LetsUpgrade</span>
+                      <h4>Java Bootcamp</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 11: Codesprint 2.0 -->
+                <div class="carousel-card" data-cert-key="cert-codesprint">
+                  <div class="card-inner">
+                    <img src="assets/cert-codesprint.jpeg" alt="Codesprint 2.0 participation certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">JIS University</span>
+                      <h4>Codesprint 2.0 Hackathon</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 12: HP LIFE Business -->
+                <div class="carousel-card" data-cert-key="cert-hp-life">
+                  <div class="card-inner">
+                    <img src="assets/cert-hp-life.jpeg" alt="HP LIFE Starting a Small Business certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">HP LIFE</span>
+                      <h4>Starting a Small Business</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 13: Accenture Data Analytics -->
+                <div class="carousel-card" data-cert-key="cert-accenture-forage">
+                  <div class="card-inner">
+                    <img src="assets/cert-accenture-forage.jpeg" alt="Accenture Forage data analytics certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">Accenture (Forage)</span>
+                      <h4>Accenture Data Analytics</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Certificate 14: Tata GenAI Analytics -->
+                <div class="carousel-card" data-cert-key="cert-tata-forage">
+                  <div class="card-inner">
+                    <img src="assets/cert-tata-forage.jpeg" alt="Tata Forage GenAI data analytics certificate" />
+                    <div class="card-overlay">
+                      <span class="issuer-badge">Tata Group (Forage)</span>
+                      <h4>Tata GenAI & Data Analytics</h4>
+                      <span class="tap-detail-tip">Tap for Details</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-btn next-btn" id="carousel-next-btn" aria-label="Next Certificate">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="carousel-dots" id="carousel-dots"></div>
           </div>
         </div>
       </section>
 
       <section class="scroll-section events-section" id="events">
-        <div class="section-kicker centered reveal">
+        <div class="section-kicker centered reveal-3d-slide-left">
           <p class="eyebrow">Events</p>
           <h2>Speaking, organizing, and building campus momentum.</h2>
         </div>
         <div class="event-river">
-          <figure class="event-card large reveal" data-lightbox-trigger>
+          <figure class="event-card large reveal-3d-scale" data-lightbox-trigger>
             <img src="assets/event-1.jpeg" alt="Uday speaking to students in a lecture hall" />
             <figcaption>Campus session with students</figcaption>
           </figure>
-          <figure class="event-card reveal" data-lightbox-trigger>
+          <figure class="event-card reveal-3d-flip-x" data-lightbox-trigger>
             <img src="assets/event-2.jpeg" alt="Group photo from a student event" />
             <figcaption>Community learning event</figcaption>
           </figure>
-          <figure class="event-card reveal" data-lightbox-trigger>
+          <figure class="event-card reveal-3d-flip-y" data-lightbox-trigger>
             <img src="assets/event-3.jpeg" alt="Students attending a college event" />
             <figcaption>Technical meetup audience</figcaption>
           </figure>
-          <figure class="event-card tall reveal" data-lightbox-trigger>
+          <figure class="event-card tall reveal-3d-scale" data-lightbox-trigger>
             <img src="assets/event-4.jpeg" alt="Uday presenting with a microphone" />
             <figcaption>Presentation and mentoring session</figcaption>
           </figure>
@@ -261,11 +486,11 @@
       </section>
 
       <section class="scroll-section projects-section" id="projects">
-        <div class="section-kicker centered reveal">
+        <div class="section-kicker centered reveal-3d-slide-right">
           <p class="eyebrow">Projects</p>
           <h2>Crafting digital ideas into reality.</h2>
         </div>
-        <div class="coming-soon-container reveal">
+        <div class="coming-soon-container reveal-3d-scale">
           <div class="coming-soon-card">
             <div class="glow-effect" aria-hidden="true"></div>
             <div class="coming-soon-content">
@@ -284,38 +509,87 @@
       </section>
 
       <section class="scroll-section timeline-section" id="education">
-        <div class="section-kicker reveal">
+        <div class="section-kicker reveal-3d-slide-left">
           <p class="eyebrow">Education</p>
           <h2>Academic background.</h2>
         </div>
-        <div class="timeline-board reveal">
-          <article>
-            <span>B.Tech (2023 - 2027)</span>
-            <h3>Computer Science Engineering</h3>
-            <p>JIS University, Kolkata</p>
-          </article>
+        <div class="timeline-container">
+          <div class="timeline-line"></div>
+          <div class="timeline-items">
+            <article class="timeline-item reveal-3d-slide-up" style="--delay: 0.1s;">
+              <div class="timeline-badge"><span class="badge-dot"></span></div>
+              <div class="timeline-card collapsed" data-education-accordion>
+                <button type="button" class="timeline-card-header" aria-expanded="false" aria-label="Toggle details for JIS University">
+                  <span class="timeline-inst">JIS University, Kolkata</span>
+                  <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="timeline-card-content">
+                  <div class="timeline-card-content-inner">
+                    <span class="timeline-date">2023 - 2027</span>
+                    <h3>Computer Science Engineering</h3>
+                    <p>Pursuing Bachelor of Technology (B.Tech). Actively organizing developer meet jams and hackathons.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="timeline-item reveal-3d-slide-up" style="--delay: 0.2s;">
+              <div class="timeline-badge"><span class="badge-dot"></span></div>
+              <div class="timeline-card collapsed" data-education-accordion>
+                <button type="button" class="timeline-card-header" aria-expanded="false" aria-label="Toggle details for GGV">
+                  <span class="timeline-inst">GGV</span>
+                  <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="timeline-card-content">
+                  <div class="timeline-card-content-inner">
+                    <span class="timeline-date">2021 - 2023</span>
+                    <h3>Higher Secondary Education</h3>
+                    <p>Completed Class XII with a score of <strong>69%</strong> in the Science stream.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="timeline-item reveal-3d-slide-up" style="--delay: 0.3s;">
+              <div class="timeline-badge"><span class="badge-dot"></span></div>
+              <div class="timeline-card collapsed" data-education-accordion>
+                <button type="button" class="timeline-card-header" aria-expanded="false" aria-label="Toggle details for NMICHS">
+                  <span class="timeline-inst">NMICHS</span>
+                  <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div class="timeline-card-content">
+                  <div class="timeline-card-content-inner">
+                    <span class="timeline-date">2021</span>
+                    <h3>Secondary Education</h3>
+                    <p>Completed Class X with a score of <strong>86%</strong> (COVID Special Edition).</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
       <section class="scroll-section contact-section" id="contact">
-        <div class="contact-panel reveal">
+        <div class="contact-panel reveal-3d-scale">
           <p class="eyebrow">Contact</p>
           <h2>Let’s connect and build something useful.</h2>
           <p>
             I am always open to exploring community initiatives, hackathon collaborations, technical internships, and innovative software solutions. Let’s build something together.
           </p>
           <div class="contact-actions" aria-label="Contact buttons">
-            <a class="button primary" href="mailto:udaymaji447@gmail.com">Mail</a>
-            <a class="button" href="https://www.linkedin.com/in/uday-maji-65437b276" target="_blank" rel="noreferrer">
-              LinkedIn
+            <a class="social-icon-btn mail-btn" href="mailto:udaymaji447@gmail.com" aria-label="Email Uday">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
             </a>
-            <a
-              class="button"
-              href="https://www.instagram.com/eccedentesiast_ud?igsh=ZmM5Y2RqeGMwdmls"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Instagram
+            <a class="social-icon-btn linkedin-btn" href="https://www.linkedin.com/in/uday-maji-65437b276" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a class="social-icon-btn instagram-btn" href="https://www.instagram.com/eccedentesiast_ud?igsh=ZmM5Y2RqeGMwdmls" target="_blank" rel="noreferrer" aria-label="Instagram Profile">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             </a>
           </div>
         </div>
@@ -323,13 +597,80 @@
     </main>
 
     <footer class="site-footer">
-      <span>© 2026 Uday Maji</span>
-      <a href="#top">Back to top</a>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="brand-text">Uday Maji</span>
+          <p>CSE B.Tech student at JIS University. Operating at the intersection of business, technology, and leadership.</p>
+        </div>
+        <div class="footer-links">
+          <strong>Links</strong>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#achievements">Achievements</a>
+          <a href="#events">Events</a>
+          <a href="#education">Education</a>
+        </div>
+        <div class="footer-social">
+          <strong>Social Connection</strong>
+          <div class="footer-icons">
+            <a class="social-icon-btn min" href="mailto:udaymaji447@gmail.com" aria-label="Mail">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </a>
+            <a class="social-icon-btn min" href="https://www.linkedin.com/in/uday-maji-65437b276" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a class="social-icon-btn min" href="https://www.instagram.com/eccedentesiast_ud?igsh=ZmM5Y2RqeGMwdmls" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Uday Maji. All rights reserved.</span>
+        <a href="#top" class="back-to-top">
+          <span>Back to top</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        </a>
+      </div>
     </footer>
 
-    <!-- Premium Lightbox Modal -->
+    <!-- Premium Certificate Details Modal -->
+    <div class="cert-modal" id="cert-modal" aria-hidden="true" role="dialog" aria-label="Certificate details">
+      <button class="cert-modal-close" id="cert-modal-close" aria-label="Close modal">&times;</button>
+      <div class="cert-modal-container">
+        <div class="cert-modal-image-pane">
+          <img id="cert-modal-img" src="" alt="Certificate Image" />
+        </div>
+        <div class="cert-modal-info-pane">
+          <span class="cert-modal-issuer" id="cert-modal-issuer">ISSUER</span>
+          <h3 class="cert-modal-title" id="cert-modal-title">Certificate Title</h3>
+          <div class="cert-modal-meta">
+            <div class="meta-item">
+              <strong>Date</strong>
+              <span id="cert-modal-date">Date</span>
+            </div>
+            <div class="meta-item" id="cert-modal-id-container">
+              <strong>Credential ID</strong>
+              <span id="cert-modal-id">ID</span>
+            </div>
+          </div>
+          <div class="cert-modal-desc-section">
+            <strong>Description</strong>
+            <p id="cert-modal-desc">Detailed certificate description goes here...</p>
+          </div>
+          <div class="cert-modal-skills" id="cert-modal-skills-container">
+            <strong>Skills Acquired</strong>
+            <div class="chips" id="cert-modal-skills">
+              <!-- Dynamic chips -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Premium Lightbox Modal for Event Photos -->
     <div class="lightbox-modal" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
-      <button class="lightbox-close" aria-label="Close image viewer" data-lightbox-close>&times;</button>
+      <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close image viewer">&times;</button>
       <div class="lightbox-content">
         <img src="" alt="" id="lightbox-img" />
         <p id="lightbox-caption" class="lightbox-caption"></p>
