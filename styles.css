@@ -1707,16 +1707,27 @@ figcaption {
 
   .story-panel,
   .contact-panel,
-  .coming-soon-card {
+  .coming-soon-card,
+  .project-card {
     padding: 24px;
+    min-height: auto;
   }
 
-  .coming-soon-content h3 {
-    font-size: 1.8rem;
+  .coming-soon-content h3,
+  .project-card-content h3 {
+    font-size: 1.6rem;
   }
 
-  .coming-soon-content p {
-    font-size: 1.05rem;
+  .coming-soon-content p,
+  .project-desc {
+    font-size: 1.02rem;
+    margin-bottom: 20px;
+  }
+
+  /* Disable horizontal translation on mobile to prevent overflow-x */
+  .reveal-3d-slide-left,
+  .reveal-3d-slide-right {
+    transform: perspective(1000px) translateY(40px) rotateX(5deg);
   }
 
   .mini-grid,
