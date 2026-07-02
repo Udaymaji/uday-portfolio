@@ -378,7 +378,6 @@ const brandGlows = {
 
 
 // --- Certificate Carousel Slider (3D Coverflow) ---
-const showAchievementsBtn = document.getElementById("show-achievements-btn");
 const certCarouselContainer = document.getElementById("certificates-carousel-container");
 const carouselTrack = document.getElementById("carousel-track");
 const prevBtn = document.getElementById("carousel-prev-btn");
@@ -458,42 +457,39 @@ function updateCarousel() {
   });
 }
 
-// Click Trigger for Raining Certificates Drop
-if (showAchievementsBtn && certCarouselContainer) {
-  showAchievementsBtn.addEventListener("click", () => {
-    const triggerContainer = showAchievementsBtn.parentElement;
-    triggerContainer.style.opacity = "0";
-    triggerContainer.style.transform = "translateY(20px) scale(0.95)";
-    triggerContainer.style.transition = "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)";
-    
-    setTimeout(() => {
-      triggerContainer.style.display = "none";
-      certCarouselContainer.classList.remove("hidden");
-      
-      // Calculate viewport variables for randomized rain drop physics coordinates
-      const vWidth = window.innerWidth;
-      const vHeight = window.innerHeight;
-      
-      cards.forEach((card, index) => {
-        // Random horizontal entry coordinates
-        const randomX = Math.floor(Math.random() * (vWidth * 0.7)) - (vWidth * 0.35);
-        // Random falling heights
-        const randomY = -(Math.floor(Math.random() * 300) + vHeight);
-        // Random rotating offsets
-        const randomR = Math.floor(Math.random() * 70) - 35;
+// Auto-trigger Raining Certificates Drop on scroll intersection
+if (certCarouselContainer) {
+  const certsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Calculate viewport variables for randomized rain drop physics coordinates
+        const vWidth = window.innerWidth;
+        const vHeight = window.innerHeight;
         
-        card.style.setProperty('--rain-x', `${randomX}px`);
-        card.style.setProperty('--rain-y', `${randomY}px`);
-        card.style.setProperty('--rain-r', `${randomR}deg`);
-        // Rain drop staggered delays
-        card.style.animationDelay = `${index * 0.11}s`;
+        cards.forEach((card, index) => {
+          // Random horizontal entry coordinates
+          const randomX = Math.floor(Math.random() * (vWidth * 0.7)) - (vWidth * 0.35);
+          // Random falling heights
+          const randomY = -(Math.floor(Math.random() * 300) + vHeight);
+          // Random rotating offsets
+          const randomR = Math.floor(Math.random() * 70) - 35;
+          
+          card.style.setProperty('--rain-x', `${randomX}px`);
+          card.style.setProperty('--rain-y', `${randomY}px`);
+          card.style.setProperty('--rain-r', `${randomR}deg`);
+          // Rain drop staggered delays
+          card.style.animationDelay = `${index * 0.11}s`;
+          
+          card.classList.add("dropping");
+        });
         
-        card.classList.add("dropping");
-      });
-      
-      setupCarousel();
-    }, 400);
-  });
+        setupCarousel();
+        certsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  certsObserver.observe(certCarouselContainer);
 }
 
 if (prevBtn) {

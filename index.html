@@ -129,7 +129,7 @@
       <nav class="site-nav" data-nav>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
-        <a href="#achievements">Achievements</a>
+        <a href="#achievements">Certifications</a>
         <a href="#events">Events</a>
         <a href="#projects">Projects</a>
         <a href="#education">Education</a>
@@ -278,19 +278,12 @@
 
       <section class="scroll-section achievements-section" id="achievements">
         <div class="section-kicker reveal-3d-slide-left">
-          <p class="eyebrow">Achievements</p>
-          <h2>Achievements, certificates, and community work.</h2>
+          <p class="eyebrow">Certifications</p>
+          <h2>Certifications, achievements, and community work.</h2>
         </div>
         <div class="achievements-layout">
           
-          <div class="achievements-trigger-container reveal-3d-slide-up">
-            <button id="show-achievements-btn" class="achievements-trigger-btn">
-              <span>If you really want to see my achievements, click here</span>
-              <span class="btn-glow-line"></span>
-            </button>
-          </div>
-
-          <div class="certificates-carousel-container hidden" id="certificates-carousel-container">
+          <div class="certificates-carousel-container" id="certificates-carousel-container">
             <div class="carousel-wrapper">
               <button class="carousel-btn prev-btn" id="carousel-prev-btn" aria-label="Previous Certificate">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -490,19 +483,59 @@
           <p class="eyebrow">Projects</p>
           <h2>Crafting digital ideas into reality.</h2>
         </div>
-        <div class="coming-soon-container reveal-3d-scale">
-          <div class="coming-soon-card">
-            <div class="glow-effect" aria-hidden="true"></div>
-            <div class="coming-soon-content">
-              <span class="status-badge">Next Phase</span>
-              <h3>Project Showcase</h3>
-              <p>
-                I am currently refining a curated portfolio of technical solutions spanning full-stack web applications, machine learning pipelines, and robust OOP applications. Source code, documentation, and live deployments will be published shortly.
-              </p>
-              <div class="coming-soon-footer">
-                <div class="pulse-indicator" aria-hidden="true"></div>
-                <span>Coming Soon</span>
+        <div class="projects-container">
+          <!-- My Projects Column -->
+          <div class="projects-column reveal-3d-slide-left">
+            <h3 class="projects-sub-title"><span class="sub-title-dot"></span> My Projects</h3>
+            <div class="projects-list">
+              <div class="project-card coming-soon-style">
+                <div class="glow-effect" aria-hidden="true"></div>
+                <div class="project-card-content">
+                  <span class="status-badge">Curating</span>
+                  <h3>Personal & Academic</h3>
+                  <p class="project-tagline">Systems, Databases & Web Apps</p>
+                  <p class="project-desc">
+                    A collection of engineering projects built during my B.Tech CSE program at JIS University. Code repositories and live links will be published soon.
+                  </p>
+                  <div class="project-card-footer">
+                    <div class="pulse-indicator" aria-hidden="true"></div>
+                    <span>Coming Soon</span>
+                  </div>
+                </div>
               </div>
+            </div>
+          </div>
+
+          <!-- Vibe Code Projects Column -->
+          <div class="projects-column reveal-3d-slide-right">
+            <h3 class="projects-sub-title"><span class="sub-title-dot vibe-dot"></span> Vibe Code Projects</h3>
+            <div class="projects-list">
+              <!-- Clickable Draftly Project Card -->
+              <a href="https://draftly-ai-companion.lovable.app" target="_blank" rel="noreferrer" class="project-card clickable-card">
+                <div class="glow-effect" aria-hidden="true"></div>
+                <div class="project-card-content">
+                  <span class="status-badge vibe-badge">Vibe Coding</span>
+                  <h3>Draftly</h3>
+                  <p class="project-tagline">AI Email Writer for Every Situation</p>
+                  <p class="project-desc">
+                    Generate professional emails in seconds. Draft, rewrite, translate, and reply using 100+ templates, 10 tones, and 9 languages.
+                  </p>
+                  <div class="project-chips">
+                    <span>AI Assistant</span>
+                    <span>Lovable</span>
+                    <span>Beta</span>
+                  </div>
+                  <div class="project-card-footer">
+                    <span class="visit-link">
+                      Visit Live Site
+                      <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -606,7 +639,7 @@
           <strong>Links</strong>
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
-          <a href="#achievements">Achievements</a>
+          <a href="#achievements">Certifications</a>
           <a href="#events">Events</a>
           <a href="#education">Education</a>
         </div>
