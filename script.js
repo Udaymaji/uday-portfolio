@@ -1091,3 +1091,49 @@ accordionCards.forEach((card) => {
     });
   }
 });
+
+// --- Projects Section Explorer Overlay Toggle ---
+const exploreProjectsBtn = document.getElementById("explore-projects-btn");
+const closeExplorerBtn = document.getElementById("close-explorer-btn");
+const projectsOverlay = document.getElementById("projects-explorer-overlay");
+
+if (exploreProjectsBtn && closeExplorerBtn && projectsOverlay) {
+  exploreProjectsBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Open the overlay
+    projectsOverlay.classList.add("open");
+    projectsOverlay.setAttribute("aria-hidden", "false");
+    document.body.classList.add("projects-open");
+    
+    // Refresh layout caching to make sure scroll calculations are aligned
+    if (typeof cacheLayoutValues === "function") {
+      cacheLayoutValues();
+    }
+  });
+
+  closeExplorerBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Close the overlay
+    projectsOverlay.classList.remove("open");
+    projectsOverlay.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("projects-open");
+    
+    // Re-calculate the 3D scroll offsets after transitions complete
+    setTimeout(() => {
+      if (typeof cacheLayoutValues === "function") {
+        cacheLayoutValues();
+      }
+    }, 450);
+  });
+  
+  // Close on Escape key press
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && projectsOverlay.classList.contains("open")) {
+      closeExplorerBtn.click();
+    }
+  });
+}

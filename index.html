@@ -479,64 +479,24 @@
       </section>
 
       <section class="scroll-section projects-section" id="projects">
-        <div class="section-kicker centered reveal-3d-slide-right">
+        <div class="section-kicker centered reveal-3d-slide-right" id="projects-section-header">
           <p class="eyebrow">Projects</p>
           <h2>Crafting digital ideas into reality.</h2>
         </div>
-        <div class="projects-container">
-          <!-- My Projects Column -->
-          <div class="projects-column reveal-3d-slide-left">
-            <h3 class="projects-sub-title"><span class="sub-title-dot"></span> My Projects</h3>
-            <div class="projects-list">
-              <div class="project-card coming-soon-style">
-                <div class="glow-effect" aria-hidden="true"></div>
-                <div class="project-card-content">
-                  <span class="status-badge">Curating</span>
-                  <h3>Personal & Academic</h3>
-                  <p class="project-tagline">Systems, Databases & Web Apps</p>
-                  <p class="project-desc">
-                    A collection of engineering projects built during my B.Tech CSE program at JIS University. Code repositories and live links will be published soon.
-                  </p>
-                  <div class="project-card-footer">
-                    <div class="pulse-indicator" aria-hidden="true"></div>
-                    <span>Coming Soon</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- Vibe Code Projects Column -->
-          <div class="projects-column reveal-3d-slide-right">
-            <h3 class="projects-sub-title"><span class="sub-title-dot vibe-dot"></span> Vibe Code Projects</h3>
-            <div class="projects-list">
-              <!-- Clickable Draftly Project Card -->
-              <a href="https://draftly-ai-companion.lovable.app" target="_blank" rel="noreferrer" class="project-card clickable-card">
-                <div class="glow-effect" aria-hidden="true"></div>
-                <div class="project-card-content">
-                  <span class="status-badge vibe-badge">Vibe Coding</span>
-                  <h3>Draftly</h3>
-                  <p class="project-tagline">AI Email Writer for Every Situation</p>
-                  <p class="project-desc">
-                    Generate professional emails in seconds. Draft, rewrite, translate, and reply using 100+ templates, 10 tones, and 9 languages.
-                  </p>
-                  <div class="project-chips">
-                    <span>AI Assistant</span>
-                    <span>Lovable</span>
-                    <span>Beta</span>
-                  </div>
-                  <div class="project-card-footer">
-                    <span class="visit-link">
-                      Visit Live Site
-                      <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                        <polyline points="7 7 17 7 17 17"></polyline>
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            </div>
+        <!-- 1. INTRO PANEL (Shown initially) -->
+        <div class="projects-intro reveal-3d-slide-up" id="projects-intro-panel">
+          <p class="projects-intro-text">
+            Operating at the intersection of business, software execution, and student leadership. I build digital systems ranging from structured academic databases to rapid 'vibe coded' prototypes and automated AI agents.
+          </p>
+          <div class="explore-projects-trigger-container">
+            <button type="button" class="explore-projects-btn" id="explore-projects-btn">
+              <span>Explore Showcase</span>
+              <svg class="btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
           </div>
         </div>
       </section>
@@ -707,6 +667,114 @@
       <div class="lightbox-content">
         <img src="" alt="" id="lightbox-img" />
         <p id="lightbox-caption" class="lightbox-caption"></p>
+      </div>
+    </div>
+
+    <!-- Viewport-Takeover Projects Subsection Overlay -->
+    <div class="projects-explorer-overlay" id="projects-explorer-overlay" aria-hidden="true" role="dialog" aria-label="Projects Showcase">
+      <div class="explorer-overlay-content">
+        <!-- Explorer Header with sticky controls -->
+        <div class="explorer-overlay-header">
+          <div class="explorer-header-title">
+            <span class="eyebrow">Portfolio</span>
+            <h2>Project Lab</h2>
+          </div>
+          <button type="button" class="close-explorer-btn" id="close-explorer-btn" aria-label="Close Projects Explorer">
+            <span class="close-icon">&times;</span>
+            <span class="close-text">Close Showcase</span>
+          </button>
+        </div>
+
+        <!-- Explorer Content Grid -->
+        <div class="projects-grid">
+          <!-- Column 1: My Projects -->
+          <div class="projects-column">
+            <h3 class="projects-sub-title"><span class="sub-title-dot"></span> My Projects</h3>
+            <div class="projects-list">
+              <div class="project-card coming-soon-style">
+                <div class="glow-effect" aria-hidden="true"></div>
+                <div class="project-card-content">
+                  <span class="status-badge">Curating</span>
+                  <h3>Personal & Academic</h3>
+                  <p class="project-tagline">Systems, Databases & Web Apps</p>
+                  <p class="project-desc">
+                    A collection of engineering projects built during my B.Tech CSE program at JIS University. Code repositories and live links will be published soon.
+                  </p>
+                  <div class="project-card-footer">
+                    <div class="pulse-indicator" aria-hidden="true"></div>
+                    <span>Coming Soon</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Vibe Code Projects -->
+          <div class="projects-column">
+            <h3 class="projects-sub-title"><span class="sub-title-dot vibe-dot"></span> Vibe Code Projects</h3>
+            <div class="projects-list">
+              <!-- Clickable Draftly Project Card -->
+              <a href="https://draftly-ai-companion.lovable.app" target="_blank" rel="noreferrer" class="project-card clickable-card">
+                <div class="glow-effect" aria-hidden="true"></div>
+                <div class="project-card-content">
+                  <span class="status-badge vibe-badge">Vibe Coding</span>
+                  <h3>Draftly</h3>
+                  <p class="project-tagline">AI Email Writer for Every Situation</p>
+                  <p class="project-desc">
+                    Generate professional emails in seconds. Draft, rewrite, translate, and reply using 100+ templates, 10 tones, and 9 languages.
+                  </p>
+                  <div class="project-chips">
+                    <span>AI Assistant</span>
+                    <span>Lovable</span>
+                    <span>Beta</span>
+                  </div>
+                  <div class="project-card-footer">
+                    <span class="visit-link">
+                      Visit Live Site
+                      <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 3: AI Generated Projects -->
+          <div class="projects-column">
+            <h3 class="projects-sub-title"><span class="sub-title-dot ai-dot"></span> AI Generated</h3>
+            <div class="projects-list">
+              <!-- AI Generated Project Card -->
+              <a href="https://github.com/udaymaji/cognitive-workspace" target="_blank" rel="noreferrer" class="project-card clickable-card ai-card">
+                <div class="glow-effect" aria-hidden="true"></div>
+                <div class="project-card-content">
+                  <span class="status-badge ai-badge">AI Agent</span>
+                  <h3>Cognitive Workspace</h3>
+                  <p class="project-tagline">Autonomous Multi-Agent System</p>
+                  <p class="project-desc">
+                    An experimental environment where autonomous agents collaborate on research, outline execution plans, and draft codebase changes dynamically.
+                  </p>
+                  <div class="project-chips">
+                    <span>LLMs</span>
+                    <span>CrewAI</span>
+                    <span>VectorDB</span>
+                  </div>
+                  <div class="project-card-footer">
+                    <span class="visit-link">
+                      View Repository
+                      <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="7" y1="17" x2="17" y2="7"></line>
+                        <polyline points="7 7 17 7 17 17"></polyline>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
