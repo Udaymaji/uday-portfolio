@@ -2398,34 +2398,49 @@ body.projects-open {
   box-shadow: 0 20px 50px rgba(0, 242, 254, 0.18);
 }
 
-/* Raining Drop gravity-bounce animation utilizing random variable configurations */
-@keyframes gravityDrop {
+/* 3D Holographic Horizon Unfold animation for Certificates */
+@keyframes certHorizonUnfold {
   0% {
-    transform: translateY(var(--rain-y, -100vh)) translateX(var(--rain-x, 0px)) rotate(var(--rain-r, -35deg)) scale(0.5);
     opacity: 0;
+    transform: translateY(45px) translateZ(-220px) rotateX(25deg) scale(0.8);
+    filter: blur(10px);
   }
-  55% {
-    transform: translateY(25px) translateX(calc(var(--rain-x, 0px) * 0.15)) rotate(calc(var(--rain-r, 0deg) * 0.15)) scale(1.06);
-    opacity: 0.85;
-  }
-  75% {
-    transform: translateY(-12px) translateX(0px) rotate(0deg) scale(0.98);
+  65% {
     opacity: 0.95;
+    transform: translateY(-8px) translateZ(20px) rotateX(-4deg) scale(1.02);
+    filter: blur(2px);
   }
   100% {
-    transform: translateY(0) translateX(0px) rotate(0deg) scale(1);
     opacity: 1;
+    filter: blur(0);
   }
 }
 
-.carousel-card.dropping {
-  animation: gravityDrop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
+.carousel-card.revealed {
+  animation: certHorizonUnfold 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .carousel-card .card-inner {
   width: 100%;
   height: 100%;
   position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease;
+}
+
+.carousel-card.active .card-inner {
+  box-shadow: inset 0 0 0 1.5px rgba(0, 242, 254, 0.6), 0 20px 50px rgba(0, 242, 254, 0.25);
+  animation: activeCardPulse 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes activeCardPulse {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-6px);
+  }
 }
 
 .carousel-card img {

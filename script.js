@@ -413,6 +413,7 @@ function updateCarousel() {
   cards.forEach((card, idx) => {
     const offset = idx - currentIndex;
     const absOffset = Math.abs(offset);
+    card.classList.toggle("active", idx === currentIndex);
     
     if (absOffset <= 2) {
       card.style.opacity = idx === currentIndex ? "1" : "0.55";
@@ -457,33 +458,46 @@ function updateCarousel() {
   });
 }
 
-// Auto-trigger Raining Certificates Drop on scroll intersection
+// Auto-Play Rotation Engine with Hover Pause
+let autoPlayTimer = null;
+
+function startAutoPlay() {
+  stopAutoPlay();
+  autoPlayTimer = setInterval(() => {
+    currentIndex = (currentIndex + 1) % cards.length;
+    updateCarousel();
+  }, 4000);
+}
+
+function stopAutoPlay() {
+  if (autoPlayTimer) {
+    clearInterval(autoPlayTimer);
+    autoPlayTimer = null;
+  }
+}
+
+function restartAutoPlay() {
+  stopAutoPlay();
+  startAutoPlay();
+}
+
+if (certCarouselContainer) {
+  certCarouselContainer.addEventListener("mouseenter", stopAutoPlay);
+  certCarouselContainer.addEventListener("mouseleave", startAutoPlay);
+}
+
+// Auto-trigger 3D Holographic Horizon Unfold animation on scroll intersection
 if (certCarouselContainer) {
   const certsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Calculate viewport variables for randomized rain drop physics coordinates
-        const vWidth = window.innerWidth;
-        const vHeight = window.innerHeight;
-        
         cards.forEach((card, index) => {
-          // Random horizontal entry coordinates
-          const randomX = Math.floor(Math.random() * (vWidth * 0.7)) - (vWidth * 0.35);
-          // Random falling heights
-          const randomY = -(Math.floor(Math.random() * 300) + vHeight);
-          // Random rotating offsets
-          const randomR = Math.floor(Math.random() * 70) - 35;
-          
-          card.style.setProperty('--rain-x', `${randomX}px`);
-          card.style.setProperty('--rain-y', `${randomY}px`);
-          card.style.setProperty('--rain-r', `${randomR}deg`);
-          // Rain drop staggered delays
-          card.style.animationDelay = `${index * 0.11}s`;
-          
-          card.classList.add("dropping");
+          card.style.animationDelay = `${index * 0.08}s`;
+          card.classList.add("revealed");
         });
         
         setupCarousel();
+        startAutoPlay();
         certsObserver.unobserve(entry.target);
       }
     });
@@ -496,6 +510,7 @@ if (prevBtn) {
   prevBtn.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + cards.length) % cards.length;
     updateCarousel();
+    restartAutoPlay();
   });
 }
 
@@ -503,6 +518,7 @@ if (nextBtn) {
   nextBtn.addEventListener("click", () => {
     currentIndex = (currentIndex + 1) % cards.length;
     updateCarousel();
+    restartAutoPlay();
   });
 }
 
@@ -526,6 +542,7 @@ if (carouselTrack) {
         currentIndex = (currentIndex + 1) % cards.length;
       }
       updateCarousel();
+      restartAutoPlay();
       isDragging = false;
     }
   });
@@ -549,6 +566,7 @@ if (carouselTrack) {
         currentIndex = (currentIndex + 1) % cards.length;
       }
       updateCarousel();
+      restartAutoPlay();
       isDragging = false;
     }
   }, { passive: true });
