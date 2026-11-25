@@ -246,7 +246,7 @@ document.querySelectorAll(
 ).forEach((element) => revealObserver.observe(element));
 
 
-// --- Comprehensive Certificates Database (14 items) ---
+// --- Comprehensive Certificates Database (10 items) ---
 const certificateDetails = {
   "cert-google-ambassador": {
     title: "Google Student Ambassador Program",
@@ -296,38 +296,6 @@ const certificateDetails = {
     desc: "Awarded for successful completion of a 30-hour Training Programme on Python Programming, covering core software building, structured programming, and backend logic.",
     skills: ["Python Programming", "Structured Algorithms", "File Handling", "OOP Logic"]
   },
-  "cert-python-bootcamp": {
-    title: "Python Bootcamp",
-    issuer: "LetsUpgrade (in collaboration with NSDC, ITM, GDG MAD)",
-    date: "March 11, 2025",
-    id: "LUEPYTNOV1243007",
-    desc: "Successfully completed the 3-day Python Bootcamp from November 14 to November 16, 2024. Explored foundational syntax, control logic, arrays, and standard libraries.",
-    skills: ["Python Syntax", "Control Flow", "Array Manipulation", "Logic Foundations"]
-  },
-  "cert-cyber-security": {
-    title: "Cyber Security and Ethical Hacking Bootcamp",
-    issuer: "LetsUpgrade (in collaboration with NSDC, ITM, GDG MAD)",
-    date: "November 29, 2024",
-    id: "LUECESHOCT124981",
-    desc: "Successfully completed the 3-day Bootcamp from October 24 to October 26, 2024. Covered essential concepts of cybersecurity, networking, ethical hacking tools, and safety protocols.",
-    skills: ["Cyber Security", "Ethical Hacking", "Network Security", "Threat Intelligence"]
-  },
-  "cert-genai-prompting": {
-    title: "Introduction to GenAI & Prompting",
-    issuer: "LetsUpgrade (in collaboration with NSDC, ITM, GDG MAD)",
-    date: "July 14, 2025",
-    id: "LUEPMTJUL125473",
-    desc: "Successfully completed the 2-day Bootcamp from July 10 to July 11, 2025. Focused on generative AI foundations, large language models, and practical prompt engineering techniques.",
-    skills: ["Generative AI", "Prompt Engineering", "Large Language Models", "AI Applications"]
-  },
-  "cert-java-bootcamp": {
-    title: "Java Bootcamp",
-    issuer: "LetsUpgrade (in collaboration with NSDC, ITM, GDG MAD)",
-    date: "March 11, 2025",
-    id: "LUEJAVANOV1241298",
-    desc: "Successfully completed the 3-day Java Bootcamp from November 25 to November 27, 2024. Covered Java programming language, OOP concepts, syntax, and coding practices.",
-    skills: ["Java Programming", "OOP Concepts", "Data Structures", "Problem Solving"]
-  },
   "cert-codesprint": {
     title: "Codesprint 2.0 Hackathon Participation",
     issuer: "JIS University",
@@ -369,7 +337,6 @@ const brandGlows = {
   "NPTEL": "rgba(127, 0, 255, 0.24)",
   "Ardent": "rgba(79, 172, 254, 0.24)",
   "Euphoria GenX": "rgba(197, 244, 108, 0.24)",
-  "LetsUpgrade": "rgba(255, 165, 0, 0.22)",
   "JIS University": "rgba(0, 242, 254, 0.22)",
   "HP LIFE": "rgba(79, 172, 254, 0.2)",
   "Accenture": "rgba(169, 139, 255, 0.22)",
